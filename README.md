@@ -16,7 +16,7 @@ Repositório criado com o intuito de fazer upload dos exercícios de listas e la
 | **Laboratório 05** | [HTML](https://eduardoshsu.github.io/ME315A/Lista_Lab_05/Lab_05_EduardoHsu.html) | | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_05/Lab_05_EduardoHsu.qmd) |
 
 
-## Minhas Listas
+## Listas
 
 | Atividade | Visualização (HTML) | Arquivo PDF | Código-fonte |
 |:---|:---:|:---:|:---:|
