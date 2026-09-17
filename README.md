@@ -1,4 +1,5 @@
 # ME315A
+Eduardo Saegi de Souza Hsu RA: 277142
 
 Repositório criado com o intuito de fazer upload dos exercícios de listas e laboratórios da matéria ME315.
 
