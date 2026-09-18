@@ -1,0 +1,109 @@
+---
+title: "Lista01_EduardoHsu"
+format: pdf
+editor: visual
+author: Eduardo Hsu 277142
+---
+
+## Hands-On
+
+```{r}
+library(DBI)
+library(RSQLite)
+
+con <- dbConnect(RSQLite::SQLite(), "me315.sqlite")
+```
+1.  Exiba a linha cujo número da reserva (PNO) seja igual a 5.
+
+```{sql connection=con}
+SELECT * FROM PRESERVE
+WHERE PNO = 5
+```
+2.  Exiba todas as informações sobre qualquer reserva natural que não cobre taxa de entrada (ou seja, FEE é igual a zero).
+
+```{sql connection=con}
+SELECT * FROM PRESERVE
+WHERE FEE = 0
+```
+3.  Exiba todas as informações sobre qualquer reserva natural com área superior a 1.000 acres.
+
+```{sql connection=con}
+SELECT * FROM PRESERVE
+WHERE ACRES > 1000
+```
+4.  Exiba todas as informações sobre qualquer reserva natural localizada no estado de Montana.
+
+```{sql connection=con}
+SELECT * FROM PRESERVE
+WHERE STATE = 'MT'
+```
+5.  Exiba todas as informações sobre a reserva Pine Butte Swamp.
+
+```{sql connection=con}
+SELECT * FROM PRESERVE
+WHERE PNAME = 'PINE BUTTE SWAMP'
+```
+6.  Exiba o número e o nome da reserva, nessa ordem da esquerda para a direita, de todas as reservas naturais.
+
+```{sql connection=con}
+SELECT PNO, PNAME FROM PRESERVE
+```
+7.  Exiba o código do estado e o nome da reserva, nessa ordem da esquerda para a direita, de todas as reservas naturais.
+
+```{sql connection=con}
+SELECT STATE, PNAME FROM PRESERVE
+```
+8.  Exiba o número e o nome da reserva para todas as reservas naturais cuja área exceda 2.000 acres.
+
+```{sql connection=con}
+SELECT PNO, PNAME FROM PRESERVE
+WHERE ACRES > 2000
+```
+9.  Exiba o nome de todas as reservas naturais localizadas no estado de Massachusetts.
+
+```{sql connection=con}
+SELECT PNAME FROM PRESERVE
+WHERE STATE = 'MA'
+```
+10. Assuma que você não sabe nada sobre essa tabela, exceto que ela possui um número pequeno de linhas. Exiba todos os dados contidos nessa tabela.
+
+```{sql connection=con}
+SELECT * FROM EMPLOYEE
+```
+11. Exiba todas as informações sobre qualquer funcionário cujo valor de salário (SALARY) exceda $1.000,00.
+
+```{sql connection=con}
+SELECT * FROM EMPLOYEE
+WHERE SALARY > 1000
+```
+12. Exiba todas as informações sobre o funcionário 2000 (ENO é igual a 2000).
+
+```{sql connection=con}
+SELECT * FROM EMPLOYEE
+WHERE ENO = 2000
+```
+13. Exiba os valores de ENAME e DNO de todos os funcionários.
+
+```{sql connection=con}
+SELECT ENAME, DNO FROM EMPLOYEE
+```
+14. Exiba os valores de ENAME e SALARY de todos os funcionários cujo valor de salário seja inferior a $1.000,00.
+
+```{sql connection=con}
+SELECT ENAME, SALARY FROM EMPLOYEE
+WHERE SALARY < 1000
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
