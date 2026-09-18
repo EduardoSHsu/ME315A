@@ -9,7 +9,7 @@ Repositório criado com o intuito de fazer upload dos exercícios de listas e la
 
 | Atividade | Visualização (HTML) | Arquivo PDF | Código-fonte |
 |:---|:---:|:---:|:---:|
-| **Laboratório 01** | | [PDF](eduardoshsu.github.io/ME315A/Lista_Lab_01/Lab01_EduardoHsu.pdf) | [(.qmd)](eduardoshsu.github.io/ME315A/Lista_Lab_01/Lab01_EduardoHsu.qmd) |
+| **Laboratório 01** | | [PDF](https://eduardoshsu.github.io/ME315A/Lista_Lab_01/Lab01_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_01/Lab01_EduardoHsu.qmd) |
 | **Laboratório 02** | | [PDF](https://eduardoshsu.github.io/ME315A/Lista_Lab_02/Lab02_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_02/Lab02_EduardoHsu.qmd) |
 | **Laboratório 03** |[HTML](https://eduardoshsu.github.io/ME315A/Lista_Lab_03/Lab03_EduardoHsu.html)  |  | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_03/Lab03_EduardoHsu.qmd) |
 | **Laboratório 04** | | [PDF](https://eduardoshsu.github.io/ME315A/Lista_Lab_04/Lab_04_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_04/Lab_04_EduardoHsu.qmd) |
