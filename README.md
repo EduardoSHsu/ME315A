@@ -25,3 +25,4 @@ Repositório criado com o intuito de fazer upload dos exercícios de listas e la
 | **Lista 03** |  | [PDF](https://eduardoshsu.github.io/ME315A/Lista_Lab_03/Lista03_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_03/Lista03_EduardoHsu.qmd) |
 | **Lista 04** |  | [PDF](https://eduardoshsu.github.io/ME315A/Lista_Lab_04/Lista04_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_04/Lista04_EduardoHsu.qmd) |
 | **Lista 05** |  | [PDF](https://eduardoshsu.github.io/ME315A/Lista_Lab_05/Lista_05_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_05/Lista_05_EduardoHsu.qmd) |
+| **Lista 06** |  | [PDF](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lista06_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lista06_EduardoHsu.qmd) |
