@@ -30,6 +30,7 @@ dbGetQuery(conn, 'SELECT COUNT(DISTINCT instructors.name) as Total
     ON teachings.instructor_id = instructors.id
   WHERE subjects.abbreviation = "STAT"')
 ```
+
 ```{r}
 dbGetQuery(conn, 'SELECT DISTINCT instructors.name
   FROM subjects
@@ -46,8 +47,6 @@ dbGetQuery(conn, 'SELECT DISTINCT instructors.name
   WHERE subjects.abbreviation = "STAT"
   LIMIT 5') #LIMIT para não poluir o PDF
 ```
-
-
 
 3.  O GPA americano é definido numa escala de 0 a 4, em que A = 4, AB = 3.5, B = 3, BC = 2.5, C = 2, D = 1 e F = 0. Determinando a nota média de cada oferecimento pela ponderação da quantidade de alunos em cada extrato com os valores numéricos de cada conceito, indique (no que se referente a disciplinas no assunto de estatística):
 
@@ -174,6 +173,7 @@ HAVING SUM(
 ORDER BY gpa_medio DESC
 LIMIT 5') #LIMIT para não poluir o PDF
 ```
+
 ```{r}
 dbGetQuery(conn, '
 SELECT
@@ -303,6 +303,7 @@ HAVING SUM(
 ORDER BY gpa_medio DESC
 LIMIT 5') #LIMIT para não poluir o PDF
 ```
+
 ```{r}
 dbGetQuery(conn, '
 SELECT
@@ -365,29 +366,30 @@ ORDER BY gpa_medio
 LIMIT 5') #LIMIT para não poluir o PDF
 ```
 
-Quem é o professor mais difícil? 
+Quem é o professor mais difícil?
 
 O professor considerado mais difícil, ou seja, com menor gpa médio é JAMES D KUELBS.
 
-Quem é o professor mais fácil? 
+Quem é o professor mais fácil?
 
-O professor considerado mais fácil, ou seja, com maior gpa médio é um empate
-entre YAJUAN SI, SRIKANTHMADHAVAN ARAVAMUTHAN e GUANHUA CHEN.
+O professor considerado mais fácil, ou seja, com maior gpa médio é um empate entre YAJUAN SI, SRIKANTHMADHAVAN ARAVAMUTHAN e GUANHUA CHEN.
 
-Qual é a disciplina mais difícil? 
+Qual é a disciplina mais difícil?
 
-A disciplina considerada mais difícil, isto é, com menor gpa médio é Introduction 
-to the Theory of Probability
+A disciplina considerada mais difícil, isto é, com menor gpa médio é Introduction to the Theory of Probability
 
 Qual é a disciplina mais fácil?
 
-A disciplina considerada mais fácil, isto é com maior gpa médio é um empate 
-entre Data Science Practicum, Empir Proc&Semiparmtrc Infernc, Nonparametric
-Statistics and Machine Learning Methods e Sample Survey Theory and Method.
+A disciplina considerada mais fácil, isto é com maior gpa médio é um empate entre Data Science Practicum, Empir Proc&Semiparmtrc Infernc, Nonparametric Statistics and Machine Learning Methods e Sample Survey Theory and Method.
 
 4.  Desconecte do banco de dados.
 
 ```{r}
 dbDisconnect(conn)
+```
+
+```{r}
+Sys.setenv(TZ = "America/Sao_Paulo")
+Sys.time()
 ```
 
