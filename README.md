@@ -14,7 +14,8 @@ Repositório criado com o intuito de fazer upload dos exercícios de listas e la
 | **Laboratório 03** |[HTML](https://eduardoshsu.github.io/ME315A/Lista_Lab_03/Lab03_EduardoHsu.html)  |  | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_03/Lab03_EduardoHsu.qmd) |
 | **Laboratório 04** | | [PDF](https://eduardoshsu.github.io/ME315A/Lista_Lab_04/Lab_04_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_04/Lab_04_EduardoHsu.qmd) |
 | **Laboratório 05** | [HTML](https://eduardoshsu.github.io/ME315A/Lista_Lab_05/Lab_05_EduardoHsu.html) | | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_05/Lab_05_EduardoHsu.qmd) |
-
+| **Laboratório 06** |  | [PDF](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lab06_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lab06_EduardoHsu.qmd) |
+| **Laboratório 07** |  | [PDF](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lab07_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lab07_EduardoHsu.qmd) |
 
 ## Listas
 
@@ -25,5 +26,4 @@ Repositório criado com o intuito de fazer upload dos exercícios de listas e la
 | **Lista 03** |  | [PDF](https://eduardoshsu.github.io/ME315A/Lista_Lab_03/Lista03_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_03/Lista03_EduardoHsu.qmd) |
 | **Lista 04** |  | [PDF](https://eduardoshsu.github.io/ME315A/Lista_Lab_04/Lista04_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_04/Lista04_EduardoHsu.qmd) |
 | **Lista 05** |  | [PDF](https://eduardoshsu.github.io/ME315A/Lista_Lab_05/Lista_05_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_05/Lista_05_EduardoHsu.qmd) |
-| **Lista 06** |  | [PDF](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lista06_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lista06_EduardoHsu.qmd) |
-| **Lista 07** |  | [PDF](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lista07_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lista07_EduardoHsu.qmd) |
+
