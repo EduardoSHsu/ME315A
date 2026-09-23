@@ -1,0 +1,393 @@
+---
+title: "Lab07_EduardoHsu"
+author: "Eduardo Hsu 277142"
+format: pdf
+editor: visual
+---
+
+1.  Baixe o arquivo uwmadison.sqlite3. Conecte-se a ele usando o pacote RSQLite, armazenando a conexão em uma variável conn.
+
+```{r}
+library(DBI)
+library(RSQLite)
+conn <- dbConnect(SQLite(), "uwmadison.sqlite3")
+```
+
+2.  Quem são e quantos são os professores que lecionaram disciplinas cujo tópico era estatística (subjects.abbreviation='STAT');
+
+```{r}
+dbGetQuery(conn, 'SELECT COUNT(DISTINCT instructors.name) as Total
+  FROM subjects
+  JOIN subject_memberships
+    ON subjects.code = subject_memberships.subject_code
+  JOIN course_offerings
+    ON subject_memberships.course_offering_uuid = course_offerings.uuid
+  JOIN sections
+    ON course_offerings.uuid = sections.course_offering_uuid
+  JOIN teachings
+    ON sections.uuid = teachings.section_uuid
+  JOIN instructors
+    ON teachings.instructor_id = instructors.id
+  WHERE subjects.abbreviation = "STAT"')
+```
+```{r}
+dbGetQuery(conn, 'SELECT DISTINCT instructors.name
+  FROM subjects
+  JOIN subject_memberships
+    ON subjects.code = subject_memberships.subject_code
+  JOIN course_offerings
+    ON subject_memberships.course_offering_uuid = course_offerings.uuid
+  JOIN sections
+    ON course_offerings.uuid = sections.course_offering_uuid
+  JOIN teachings
+    ON sections.uuid = teachings.section_uuid
+  JOIN instructors
+    ON teachings.instructor_id = instructors.id
+  WHERE subjects.abbreviation = "STAT"
+  LIMIT 5') #LIMIT para não poluir o PDF
+```
+
+
+
+3.  O GPA americano é definido numa escala de 0 a 4, em que A = 4, AB = 3.5, B = 3, BC = 2.5, C = 2, D = 1 e F = 0. Determinando a nota média de cada oferecimento pela ponderação da quantidade de alunos em cada extrato com os valores numéricos de cada conceito, indique (no que se referente a disciplinas no assunto de estatística):
+
+```{r}
+dbGetQuery(conn, '
+SELECT
+    courses.name AS disciplina,
+
+    (
+        4.0 * grade_distributions.a_count +
+        3.5 * grade_distributions.ab_count +
+        3.0 * grade_distributions.b_count +
+        2.5 * grade_distributions.bc_count +
+        2.0 * grade_distributions.c_count +
+        1.0 * grade_distributions.d_count +
+        0.0 * grade_distributions.f_count
+    )
+    /
+    (
+        grade_distributions.a_count +
+        grade_distributions.ab_count +
+        grade_distributions.b_count +
+        grade_distributions.bc_count +
+        grade_distributions.c_count +
+        grade_distributions.d_count +
+        grade_distributions.f_count
+    ) AS gpa
+
+FROM subjects
+
+JOIN subject_memberships
+    ON subjects.code = subject_memberships.subject_code
+
+JOIN course_offerings
+    ON subject_memberships.course_offering_uuid = course_offerings.uuid
+
+JOIN courses
+    ON course_offerings.course_uuid = courses.uuid
+
+JOIN sections
+    ON course_offerings.uuid = sections.course_offering_uuid
+
+JOIN grade_distributions
+    ON course_offerings.uuid = grade_distributions.course_offering_uuid
+    AND sections.number = grade_distributions.section_number
+
+WHERE subjects.abbreviation = "STAT"
+AND (
+      grade_distributions.a_count +
+      grade_distributions.ab_count +
+      grade_distributions.b_count +
+      grade_distributions.bc_count +
+      grade_distributions.c_count +
+      grade_distributions.d_count +
+      grade_distributions.f_count
+  ) > 0
+LIMIT 5') #LIMIT para não poluir o PDF
+```
+
+```{r}
+dbGetQuery(conn, '
+SELECT
+    instructors.name AS professor,
+
+    SUM(
+        (
+            4.0 * grade_distributions.a_count +
+            3.5 * grade_distributions.ab_count +
+            3.0 * grade_distributions.b_count +
+            2.5 * grade_distributions.bc_count +
+            2.0 * grade_distributions.c_count +
+            1.0 * grade_distributions.d_count +
+            0.0 * grade_distributions.f_count
+        ))
+        /
+       SUM((
+            grade_distributions.a_count +
+            grade_distributions.ab_count +
+            grade_distributions.b_count +
+            grade_distributions.bc_count +
+            grade_distributions.c_count +
+            grade_distributions.d_count +
+            grade_distributions.f_count
+        )
+    ) AS gpa_medio
+
+FROM subjects
+
+JOIN subject_memberships
+    ON subjects.code = subject_memberships.subject_code
+
+JOIN course_offerings
+    ON subject_memberships.course_offering_uuid = course_offerings.uuid
+
+JOIN courses
+    ON course_offerings.course_uuid = courses.uuid
+
+JOIN sections
+    ON course_offerings.uuid = sections.course_offering_uuid
+
+JOIN teachings
+    ON sections.uuid = teachings.section_uuid
+
+JOIN instructors
+    ON teachings.instructor_id = instructors.id
+
+JOIN grade_distributions
+    ON course_offerings.uuid = grade_distributions.course_offering_uuid
+    AND sections.number = grade_distributions.section_number
+
+WHERE subjects.abbreviation = "STAT"
+
+GROUP BY instructors.name
+HAVING SUM(
+    grade_distributions.a_count +
+    grade_distributions.ab_count +
+    grade_distributions.b_count +
+    grade_distributions.bc_count +
+    grade_distributions.c_count +
+    grade_distributions.d_count +
+    grade_distributions.f_count
+) > 0
+
+ORDER BY gpa_medio DESC
+LIMIT 5') #LIMIT para não poluir o PDF
+```
+```{r}
+dbGetQuery(conn, '
+SELECT
+    instructors.name AS professor,
+
+    SUM(
+        (
+            4.0 * grade_distributions.a_count +
+            3.5 * grade_distributions.ab_count +
+            3.0 * grade_distributions.b_count +
+            2.5 * grade_distributions.bc_count +
+            2.0 * grade_distributions.c_count +
+            1.0 * grade_distributions.d_count +
+            0.0 * grade_distributions.f_count
+        ))
+        /
+       SUM((
+            grade_distributions.a_count +
+            grade_distributions.ab_count +
+            grade_distributions.b_count +
+            grade_distributions.bc_count +
+            grade_distributions.c_count +
+            grade_distributions.d_count +
+            grade_distributions.f_count
+        )
+    ) AS gpa_medio
+
+FROM subjects
+
+JOIN subject_memberships
+    ON subjects.code = subject_memberships.subject_code
+
+JOIN course_offerings
+    ON subject_memberships.course_offering_uuid = course_offerings.uuid
+
+JOIN courses
+    ON course_offerings.course_uuid = courses.uuid
+
+JOIN sections
+    ON course_offerings.uuid = sections.course_offering_uuid
+
+JOIN teachings
+    ON sections.uuid = teachings.section_uuid
+
+JOIN instructors
+    ON teachings.instructor_id = instructors.id
+
+JOIN grade_distributions
+    ON course_offerings.uuid = grade_distributions.course_offering_uuid
+    AND sections.number = grade_distributions.section_number
+
+WHERE subjects.abbreviation = "STAT"
+
+GROUP BY instructors.name
+HAVING SUM(
+    grade_distributions.a_count +
+    grade_distributions.ab_count +
+    grade_distributions.b_count +
+    grade_distributions.bc_count +
+    grade_distributions.c_count +
+    grade_distributions.d_count +
+    grade_distributions.f_count
+) > 0
+
+ORDER BY gpa_medio 
+LIMIT 5') #LIMIT para não poluir o PDF
+```
+
+```{r}
+dbGetQuery(conn, '
+SELECT
+    courses.name AS disciplina,
+    courses.number AS numero,
+
+    SUM(
+        (
+            4.0 * grade_distributions.a_count +
+            3.5 * grade_distributions.ab_count +
+            3.0 * grade_distributions.b_count +
+            2.5 * grade_distributions.bc_count +
+            2.0 * grade_distributions.c_count +
+            1.0 * grade_distributions.d_count +
+            0.0 * grade_distributions.f_count
+        ))
+        /
+        SUM((
+            grade_distributions.a_count +
+            grade_distributions.ab_count +
+            grade_distributions.b_count +
+            grade_distributions.bc_count +
+            grade_distributions.c_count +
+            grade_distributions.d_count +
+            grade_distributions.f_count
+        )
+    ) AS gpa_medio
+
+FROM subjects
+
+JOIN subject_memberships
+    ON subjects.code = subject_memberships.subject_code
+
+JOIN course_offerings
+    ON subject_memberships.course_offering_uuid = course_offerings.uuid
+
+JOIN courses
+    ON course_offerings.course_uuid = courses.uuid
+
+JOIN sections
+    ON course_offerings.uuid = sections.course_offering_uuid
+
+JOIN grade_distributions
+    ON course_offerings.uuid = grade_distributions.course_offering_uuid
+    AND sections.number = grade_distributions.section_number
+
+WHERE subjects.abbreviation = "STAT"
+
+GROUP BY courses.name, courses.number
+HAVING SUM(
+    grade_distributions.a_count +
+    grade_distributions.ab_count +
+    grade_distributions.b_count +
+    grade_distributions.bc_count +
+    grade_distributions.c_count +
+    grade_distributions.d_count +
+    grade_distributions.f_count
+) > 0
+ORDER BY gpa_medio DESC
+LIMIT 5') #LIMIT para não poluir o PDF
+```
+```{r}
+dbGetQuery(conn, '
+SELECT
+    courses.name AS disciplina,
+    courses.number AS numero,
+
+    SUM(
+        (
+            4.0 * grade_distributions.a_count +
+            3.5 * grade_distributions.ab_count +
+            3.0 * grade_distributions.b_count +
+            2.5 * grade_distributions.bc_count +
+            2.0 * grade_distributions.c_count +
+            1.0 * grade_distributions.d_count +
+            0.0 * grade_distributions.f_count
+        ))
+        /
+        SUM((
+            grade_distributions.a_count +
+            grade_distributions.ab_count +
+            grade_distributions.b_count +
+            grade_distributions.bc_count +
+            grade_distributions.c_count +
+            grade_distributions.d_count +
+            grade_distributions.f_count
+        )
+    ) AS gpa_medio
+
+FROM subjects
+
+JOIN subject_memberships
+    ON subjects.code = subject_memberships.subject_code
+
+JOIN course_offerings
+    ON subject_memberships.course_offering_uuid = course_offerings.uuid
+
+JOIN courses
+    ON course_offerings.course_uuid = courses.uuid
+
+JOIN sections
+    ON course_offerings.uuid = sections.course_offering_uuid
+
+JOIN grade_distributions
+    ON course_offerings.uuid = grade_distributions.course_offering_uuid
+    AND sections.number = grade_distributions.section_number
+
+WHERE subjects.abbreviation = "STAT"
+
+GROUP BY courses.name, courses.number
+HAVING SUM(
+    grade_distributions.a_count +
+    grade_distributions.ab_count +
+    grade_distributions.b_count +
+    grade_distributions.bc_count +
+    grade_distributions.c_count +
+    grade_distributions.d_count +
+    grade_distributions.f_count
+) > 0
+ORDER BY gpa_medio 
+LIMIT 5') #LIMIT para não poluir o PDF
+```
+
+Quem é o professor mais difícil? 
+
+O professor considerado mais difícil, ou seja, com menor gpa médio é JAMES D KUELBS.
+
+Quem é o professor mais fácil? 
+
+O professor considerado mais fácil, ou seja, com maior gpa médio é um empate
+entre YAJUAN SI, SRIKANTHMADHAVAN ARAVAMUTHAN e GUANHUA CHEN.
+
+Qual é a disciplina mais difícil? 
+
+A disciplina considerada mais difícil, isto é, com menor gpa médio é Introduction 
+to the Theory of Probability
+
+Qual é a disciplina mais fácil?
+
+A disciplina considerada mais fácil, isto é com maior gpa médio é um empate 
+entre Data Science Practicum, Empir Proc&Semiparmtrc Infernc, Nonparametric
+Statistics and Machine Learning Methods e Sample Survey Theory and Method.
+
+4.  Desconecte do banco de dados.
+
+```{r}
+dbDisconnect(conn)
+```
+
