@@ -16,6 +16,7 @@ Repositório criado com o intuito de fazer upload dos exercícios de listas e la
 | **Laboratório 05** | [HTML](https://eduardoshsu.github.io/ME315A/Lista_Lab_05/Lab_05_EduardoHsu.html) | | [(.qmd)](https://eduardoshsu.github.io/ME315A/Lista_Lab_05/Lab_05_EduardoHsu.qmd) |
 | **Laboratório 06** |  | [PDF](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lab06_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lab06_EduardoHsu.qmd) |
 | **Laboratório 07** |  | [PDF](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lab07_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lab07_EduardoHsu.qmd) |
+| **Laboratório 09** |  | [PDF](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lab09_EduardoHsu.pdf) | [(.qmd)](https://eduardoshsu.github.io/ME315A/Listas_Labs/Lab09_EduardoHsu.qmd) |
 
 ## Listas
 
