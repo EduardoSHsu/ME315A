@@ -1,0 +1,99 @@
+---
+title: "Lab 09_EduardoHsu"
+author: Eduardo Hsu RA:277142
+date: "2026-19-10"
+format: 
+    pdf:
+        toc: true
+        number-sections: true
+        colorlinks: true
+execute: 
+  warning: false
+  message: false
+---
+
+1.  Importe o conjunto de dados diamonds, cujo arquivo está disponível no website da disciplina.
+
+```{python}
+import polars as pl
+import pandas as pd
+from plotnine import * 
+df_diamonds = pl.read_csv("diamonds.csv.gz")
+```
+
+```{python}
+print(df_diamonds.shape)
+df_diamonds.head(5)
+```
+
+2.  Crie uma visualização de dados que descreva a associação existente entre as variáveis peso (carat) e preço (price). Que ações você tomou para garantir que você produziu um gráfico de boa qualidade? Escreva um parágrafo comunicando os seus achados.
+
+```{python}
+df_plot = df_diamonds.to_pandas()
+
+(ggplot(df_plot, aes(x='carat', y='price')) +
+    geom_point(alpha=0.1, color = '#440469', size = 0.8) +
+    geom_smooth(method='lm', color = '#e74c3c', se=False) +
+    scale_y_continuous(labels=lambda l: ["${:,.0f}".format(v) for v in l]) +
+    labs(title='Relação entre preço e peso', x='Peso (Carat)', y='Preço (USD)') +
+    theme_minimal()
+)
+```
+
+Para garantir um gráfico de boa qualidade foi ajustada a transparência dos pontos para evitar sobreposição e melhorar a visualização dos dados, além disso foi feita a formatação do eixo Y para leitura em doláres e também foi adicionada a curva de tendência linear, mostrando que a relação entre peso e preço é não linear, parece exponencial.
+
+O gráfico mostra uma relação positiva acentuada entre o peso do diamante e seu preço, indicando que diamantes mais pesados tendem a ser significativamente mais caros. A maior concentração de observações ocorre em diamantes com peso inferior a 1,5 quilates, cujos preços costumam se situar abaixo de USD 5.000. À medida que o peso aumenta em direção ao limite de 5,01 quilates, o preço cresce rapidamente até atingir o teto de USD 18.823. Observa-se também que a variabilidade dos preços se amplia consideravelmente para diamantes mais pesados, sugerindo que o peso deixa de ser o único fator determinante do valor e que outras características de qualidade passam a influenciar o preço final.
+
+3.  A relação identificada na questão anterior é a mesma relação presente nos diferentes cortes de diamantes? Crie uma visualização que demonstre seus achados eficientemente. Descreva sua conclusão em um parágrafo.
+
+```{python}
+(ggplot(df_plot, aes(x='carat', y='price', color = 'cut')) +
+    geom_point(alpha=0.8, color = '#440469', size = 0.6) +
+    geom_smooth(method='lm', color = '#e74c3c', se=False) +
+    facet_wrap('~cut', nrow = 1) +
+    scale_y_continuous(labels=lambda l: ["${:,.0f}".format(v) for v in l]) +
+    labs(title='Associação Peso vs Preço por Qualidade de Corte', x='Peso (Carat)', y='Preço (USD)') +
+    theme_minimal())
+```
+
+A tendência positiva entre peso e preço se mantém em todas as cinco qualidades de corte, porém a eficiência na valorização varia entre os grupos. Diamantes de corte superior Ideal e Premium apresentam curvas de tendência levemente mais íngremes, atingindo patamares de preço mais elevados para um mesmo peso em comparação ao corte Fair. Além disso, diamantes com corte 4Fair são menos frequentes acima de 2,5 quilates e exibem uma dispersão de preços mais irregular ao longo da escala de peso.
+
+4.  Crie uma visualização que mostre a relação entre preço e peso do diamante, considerando as diferentes combinações de qualidade de corte, cor e clareza do diamante. Quais foram as dificuldades encontradas? A relação entre preço e peso é a mesma para diferentes configurações de diamantes?
+
+```{python}
+qualidades_corte = ["Fair", "Good", "Very Good", "Premium", "Ideal"]
+
+for corte in qualidades_corte:
+    # Filtragem de alta performance com Polars
+    df_corte = df_diamonds.filter(pl.col("cut") == corte).to_pandas()
+    
+    grafico = (
+        ggplot(df_corte, aes(x='carat', y='price', color='clarity'))
+        + geom_point(alpha=0.2, size=0.8)
+        + geom_smooth(method='lm', se=False, size=0.6)
+        + facet_wrap('~color', nrow=2)
+        + scale_color_brewer(type='qual', palette='Set1')
+        + scale_y_continuous(labels=lambda l: [f'${v:,.0f}' for v in l])
+        + labs(
+            title=f'Qualidade de Corte: {corte}',
+            subtitle='Preço vs. Peso por Cor (Colunas) e Clareza (Cores)',
+            x='Peso (Carat)',
+            y='Preço (USD)',
+            color='Clareza'
+        )
+        + theme_minimal()
+    )
+    grafico.show()
+```
+
+O cruzamento simultâneo das 35 combinações de corte e cor em um único gráfico espremia os eixos e impedia a leitura dos dados, para arrumar isso dividimos a visualização filtrando individualmente cada qualidade de corte. Isso reduziu o gráfico para apenas 7 subgráficos por figura. 
+
+Ao analisar os 5 gráficos separados, percebe-se que a relação positiva entre peso e preço se mantém em todas as combinações. Em cortes superiores Ideal* e Premium, a inclinação das linhas de regressão cresce muito mais rápido especialmente para cores superiores como D e E e clarezas altas como IF e VVS1. Em cortes inferiores Fair, a variabilidade é maior, os dados para quilatagens elevadas são escassos e a inclinação das curvas de valorização é visivelmente mais suave.
+
+```{python}
+from datetime import datetime
+from IPython.display import Markdown, display
+
+data_geracao = datetime.now().strftime('%d/%m/%Y às %H:%M:%S')
+display(Markdown(f"**Relatório gerado em:** {data_geracao}"))
+```
